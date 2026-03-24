@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Скучаешь?</title>
+<style>
+  html,body{height:100%;margin:0}
+  body{background:#ffc0cb;display:flex;align-items:center;justify-content:center;font:16px system-ui,Arial,sans-serif}
+  .box{text-align:center}
+  h1{margin:0 0 16px}
+  .btn{margin:0 8px;padding:10px 18px;border:0;border-radius:8px;cursor:pointer;background:#fff}
+  #no{position:fixed;cursor:not-allowed;user-select:none}
+</style>
+<body>
+  <div class="box">
+    <h1> Ангелина,Скучаешь по мне?</h1>
+    <button id="yes" class="btn">ДА</button>
+  </div>
+  <button id="no" class="btn">НЕТ</button>
+<script>
+const no=document.getElementById('no'),yes=document.getElementById('yes');
+yes.onclick=()=>alert('Ваш ответ: ДА');
+let x=0,y=0; const cm=n=>n*96/2.54;
+function clamp(){const w=no.offsetWidth,h=no.offsetHeight;
+  x=Math.max(0,Math.min(innerWidth-w,x));
+  y=Math.max(0,Math.min(innerHeight-h,y));
+  no.style.left=x+'px'; no.style.top=y+'px';
+}
+function step(){const d=cm(1+Math.random()),a=Math.random()*2*Math.PI;
+  x+=Math.cos(a)*d; y+=Math.sin(a)*d; clamp();
+}
+function init(){const r=yes.getBoundingClientRect();
+  x=r.right+12; y=r.top; clamp();
+}
+no.addEventListener('mouseenter',step);
+no.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();step();});
+document.addEventListener('click',e=>{if(e.target!==no)step();});
+addEventListener('resize',clamp); addEventListener('load',init);
+</script>
+</body></html>
+
